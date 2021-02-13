@@ -1,7 +1,7 @@
 import pandas as pd
 
 def data_cleaning(caminho):
-    df = pd.read_csv(caminho + '\\Output\\glassdoor_jobs.csv')    
+    df = pd.read_csv(caminho + 'Output\\glassdoor_jobs.csv')    
 
     df['Per Hour'] = df['Salary Estimate'].apply(lambda x: 1 if 'per hour' in x.lower() else 0)
     df['Employer_Provided'] = df['Salary Estimate'].apply(lambda x: 1 if 'employer provided' in x.lower() else 0)
@@ -35,3 +35,5 @@ def data_cleaning(caminho):
     df.drop(columns=['Unnamed: 0'], inplace=True)
 
     df.to_excel(caminho + "\\Output\\glassdoor_jobs.xlsx", index=False)
+
+data_cleaning("C:\\Users\\anny_\\Documents\\The_Glassdoor_Project\\")
