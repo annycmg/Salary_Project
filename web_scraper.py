@@ -9,9 +9,7 @@ import time
 import pandas as pd
 
 def get_jobs(keyword, num_jobs, verbose, path, slp_time):
-    
     '''Gathers jobs as a dataframe, scraped from Glassdoor'''
-    
     options = webdriver.ChromeOptions() # Webdriver
     
     # Chromedriver path
@@ -24,9 +22,9 @@ def get_jobs(keyword, num_jobs, verbose, path, slp_time):
     jobs = []
 
     while len(jobs) < num_jobs:  # If true, it keeps looking for new jobs.
-
+        
         time.sleep(slp_time) # Let the page load
-
+        
         # Get rid of SipnUp pop up screen.
         try:
             driver.find_element_by_class_name("selected").click()
@@ -140,7 +138,7 @@ def get_jobs(keyword, num_jobs, verbose, path, slp_time):
                 print("Sector: {}".format(sector))
                 print("Revenue: {}".format(revenue))
                 print("Competitors: {}".format(competitors))
-                print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+                print("######################################")
 
             jobs.append({"Job Title" : job_title,
             "Salary Estimate" : salary_estimate,
@@ -163,6 +161,7 @@ def get_jobs(keyword, num_jobs, verbose, path, slp_time):
         except NoSuchElementException:
             print("Scraping terminated before reaching target number of jobs. Needed {}, got {}.".format(num_jobs, len(jobs)))
             break
+    
     df = pd.DataFrame(jobs)  # Convert dict object into DataFrame.
     df.to_csv('C:\\Users\\anny_\\Documents\\The_Glassdoor_Project\\Ouput\\glassdoor_jobs.csv', index = False)
     
